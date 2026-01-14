@@ -29,11 +29,11 @@ html_output: {
       h('h'.$l=l()); c($title); h('/h'.$l);
       h('h'.$l=l()); c('LOOP'); h('/h'.$l); l(0);
       h('ul');
-      $i=0; hello_world_loop: {
+      $i=0; $max=10; hello_world_loop: {
         h('li style="color: rgb('.rand(0,255).','.rand(0,255).','.rand(0,255).');"');
           c('Hello World');
         h('/li');
-      } if (++$i<10) goto hello_world_loop;
+      } if (++$i<$max) goto hello_world_loop;
       h('/ul');
       h('h'.$l=l()); c('DONE:'); h('/h'.$l); l(0);
       h('p'); 
