@@ -3,6 +3,8 @@
 > **Fun Project - Labels and Goto**
 > A celebration of PHP's most misunderstood control structure
 
+![Screenshot](screenshot.png)
+
 ## Overview
 
 This project demonstrates the elegant power of `goto` and labels in PHP, combined with a minimal, functional approach to HTML generation. It's a showcase of how simplicity and directness can lead to remarkably clean code.
