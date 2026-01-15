@@ -1,5 +1,6 @@
 <?php
 $title='Fun Project - 001-labels-and-goto';
+$lang='de';
 
 // (h)onest (p)HP (c)ode (d)oesn't (l)ie
 honest_php_code_doesnt_lie: {
@@ -19,7 +20,7 @@ $demo=[
 
 html_output: {
   h('!DOCTYPE html');
-  h('html lang="de"');
+  h('html lang="'.$lang.'"');
     h('head');
       h('title');
         c($title);
@@ -37,7 +38,7 @@ html_output: {
       h('/ul');
       h('h'.$l=l()); c('DONE:'); h('/h'.$l); l(0);
       h('p'); 
-      c('Done!'); 
+        c('Done!'); 
       h('/p');
       h('h'.$l=l()); c('DEMO-ARRAY'); h('/h'.$l); l(0);
       h('hr');
@@ -50,7 +51,6 @@ html_output: {
           c('Nested content');
         h('/div');
       h('/div');
-
     h('/body');
   h('/html');
 }

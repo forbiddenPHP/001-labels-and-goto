@@ -16,16 +16,19 @@ This project demonstrates the elegant power of `goto` and labels in PHP, combine
 Instead of verbose `do-while` constructs, we use the elegant combination of labels and `goto`:
 
 ```php
-$i=0; hello_world_loop: {
+$i=0; $max=10; hello_world_loop: {
   h('li style="color: rgb('.rand(0,255).','.rand(0,255).','.rand(0,255).');"');
     c('Hello World');
   h('/li');
-} if (++$i<10) goto hello_world_loop;
+} if (++$i<$max) goto hello_world_loop;
 ```
+
+**The `$max` variable is crucial here** - it defines the exit condition for the goto loop. Unlike traditional loops where the condition is hidden in syntax, here it's **explicit and visible**: `if (++$i<$max)`. This makes the loop termination crystal clear.
 
 **Benefits:**
 - **Ultra-compact syntax** - Everything on minimal lines
 - **Crystal-clear flow** - The label name describes exactly what the loop does
+- **Explicit exit condition** - `$max` makes the loop boundary obvious and configurable
 - **Zero overhead** - No hidden iteration mechanics, just pure jumps
 - **Visual clarity** - The block structure is explicit and readable
 
@@ -95,28 +98,71 @@ This project embraces:
 
 ## Structure
 
-The code follows a natural document flow with clear visual indentation that mirrors the HTML structure:
+The entire code is organized using **two main labels**:
+
+1. **`honest_php_code_doesnt_lie:`** - Defines all helper functions at the start
+2. **`html_output:`** - Contains all HTML generation code
+
+This label-based organization makes the code structure immediately obvious and creates clear separation of concerns.
+
+The HTML generation follows a natural document flow with clear visual indentation that mirrors the HTML structure:
 
 ```php
-h('html lang="de"');
-  h('head');
-    h('title');
-      c($title);
-    h('/title');
-  h('/head');
-  h('body');
-    // Content here
-  h('/body');
-h('/html');
+html_output: {
+  h('!DOCTYPE html');
+  h('html lang="'.$lang.'"');
+    h('head');
+      h('title');
+        c($title);
+      h('/title');
+    h('/head');
+    h('body');
+      h('h'.$l=l()); c($title); h('/h'.$l);
+      h('h'.$l=l()); c('LOOP'); h('/h'.$l); l(0);
+      h('ul');
+      // ... loop content ...
+      h('/ul');
+      h('h'.$l=l()); c('DEMO-ARRAY'); h('/h'.$l); l(0);
+      p($demo);
+      d($demo);
+      h('h'.$l=l()); c('NESTED'); h('/h'.$l); l(0);
+      h('div');
+        h('div');
+          c('Nested content');
+        h('/div');
+      h('/div');
+    h('/body');
+  h('/html');
+}
 ```
+
+### 📦 Demo Array Output
+
+The code includes a demonstration array that showcases both `p()` (print_r) and `d()` (var_dump) functions:
+
+```php
+$demo=[
+  'A' => 'an A',
+  'B' => 'a B',
+  'C' => 'a C',
+  'D' => 'a D',
+  'E' => 'an E',
+];
+```
+
+This array is then displayed using both helper functions:
+- `p($demo)` - Clean, readable print_r output in `<pre>` tags
+- `d($demo)` - Detailed var_dump with type information
 
 ## Running the Project
 
 Simply open `index.php` in your browser through your PHP server. Watch as:
-- 10 colorful "Hello World" items appear
+- 10 colorful "Hello World" items appear (controlled by `$max=10`)
 - Each in a randomly generated RGB color
-- With proper semantic heading hierarchy
-- And debug output showing data structures
+- With proper semantic heading hierarchy (h1, h2 managed by `l()`)
+- Demo array displayed with both `p()` and `d()` functions
+- Nested div structure demonstrating proper HTML nesting
+- All organized under clear labeled sections (LOOP, DONE, DEMO-ARRAY, NESTED)
 
 ## What Makes This "Forbidden"?
 
